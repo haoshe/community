@@ -1,10 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<!--
+This HTML file is a Thymeleaf template.
+`xmlns:th="http://www.thymeleaf.org"` declares the Thymeleaf XML namespace,
+allowing the use of `th:*` attributes as defined in the Thymeleaf syntax.
+The syntax and usage are based on the Thymeleaf official documentation.
+-->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>Teacher</title>
 </head>
 <body>
-$END$
+    <!-- Display the value of the "name" attribute from the model -->
+    <p th:text="${name}"></p>
+    <!-- Display the value of the "age" attribute from the model -->
+    <p th:text="${age}"></p>
 </body>
 </html>
