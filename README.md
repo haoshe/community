@@ -60,7 +60,7 @@ A full-featured community forum platform built with Spring Boot, enabling users 
 
 ## 📖 Development Log
 
-Check out the detailed development progress and technical decisions in the [dev-log](community/dev-log) directory.
+Check out the detailed development progress and technical decisions in the [dev-log](dev-log/) directory.
 
 ## 📄 License
 
