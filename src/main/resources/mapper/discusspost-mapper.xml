@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.haoshe.community.dao.DiscussPostMapper">
+
+    <sql id="selectFields">
+        id, user_id, title, content, type, status, create_time, comment_count, score
+    </sql>
+
+    <select id="selectDiscussPosts" resultType = "DiscussPost">
+        select <include refid="selectFields"></include>
+        from discuss_post
+        where status != 2
+        <!-- If userId is not 0, filter results to only include posts created by that user -->
+        <if test="userId != 0">
+            and user_id = #{userId}
+        </if>
+        <!-- Order posts by type (e.g., pinned posts first), then by creation time (newest first) -->
+        order by type desc, create_time desc
+        <!-- Apply pagination: start from 'offset' and return at most 'limit' rows -->
+        limit #{offset}, #{limit}
+    </select>
+
+    <select id="selectDiscussPostRows" resultType="int">
+        <!--
+            Use COUNT(id) to return the total number of posts.
+
+            COUNT is a built-in SQL aggregate function.
+            - COUNT(*)  → counts all rows (including those with NULLs).
+            - COUNT(column) → counts only rows where the given column is NOT NULL.
+
+            Since 'id' is a primary key (never NULL), COUNT(id) here is equivalent
+            to COUNT(*). It ensures we are counting valid rows that meet the conditions.
+        -->
+        select count(id)
+        from discuss_post
+        <!-- 0-Normal; 1-Featured; 2-Blocked -->
+        where status != 2
+        <!-- If userId is not 0, filter results to only include posts created by that user -->
+        <if test="userId != 0">
+            and user_id = #{userId}
+        </if>
+    </select>
+</mapper>

@@ -1,6 +1,8 @@
 package com.haoshe.community;
 
+import com.haoshe.community.dao.DiscussPostMapper;
 import com.haoshe.community.dao.UserMapper;
+import com.haoshe.community.entity.DiscussPost;
 import com.haoshe.community.entity.User;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
@@ -10,6 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
 
 import java.util.Date;
+import java.util.List;
 
 
 @SpringBootTest
@@ -57,6 +60,19 @@ public class MapperTests {
         System.out.println(rows);
 
         rows = userMapper.updatePassword(150, "hello");
+        System.out.println(rows);
+    }
+
+    @Autowired
+    private DiscussPostMapper discussPostMapper;
+
+    @Test
+    public void testSelectPosts(){
+        List<DiscussPost> list = discussPostMapper.selectDiscussPosts(149, 0, 10);
+        for(DiscussPost post : list){
+            System.out.println(post);
+        }
+        int rows = discussPostMapper.selectDiscussPostRows(149);
         System.out.println(rows);
     }
 }
